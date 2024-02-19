@@ -83,7 +83,7 @@ class _HealthTrackerState extends State<HealthTracker> {
                           Container(
                             alignment: Alignment.center,
                             child: Image.asset(
-                              'assets/images/target.png',
+                              'assets/images/camera.png',
                               width: width * 0.2,
                             ),
                           ),
@@ -138,7 +138,7 @@ class _HealthTrackerState extends State<HealthTracker> {
                           Container(
                             alignment: Alignment.center,
                             child: Image.asset(
-                              'assets/images/icon_trophy.png',
+                              'assets/images/healthTrackRecap.png',
                               width: width * 0.2,
                             ),
                           ),
@@ -183,6 +183,70 @@ class _HealthTrackerState extends State<HealthTracker> {
                   ),
                 ],
               ),
+              SizedBox(
+                height: height * 0.02,
+              ),
+              Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Health Screening ',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: width * 0.05),
+                ),
+              ),
+              SizedBox(
+                height: height * 0.01,
+              ),
+              Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Do your health screening test, so you can track!',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: width * 0.04),
+                ),
+              ),
+              SizedBox(
+                height: height * 0.01,
+              ),
+              Container(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'This test consist of\n'
+                  '- choice questions\n'
+                  '- add complaints (if any)\n'
+                  'Make sure you have read the questions carefully and answered according to the existing conditions',
+                  style: TextStyle(color: Colors.grey.shade600),
+                ),
+              ),
+              SizedBox(
+                height: height * 0.02,
+              ),
+              Container(
+                  alignment: Alignment.center,
+                  padding: EdgeInsets.symmetric(vertical: 10),
+                  decoration: BoxDecoration(
+                      color: Colors.blue.shade600,
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Take a Test",
+                        style: TextStyle(
+                            fontSize: width * 0.05,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                        textAlign: TextAlign.center,
+                      ),
+                      SizedBox(
+                        width: width * 0.02,
+                      ),
+                      Icon(
+                        Icons.arrow_forward,
+                        color: Colors.white,
+                      )
+                    ],
+                  )),
             ],
           ),
         )));

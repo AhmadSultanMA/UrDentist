@@ -109,10 +109,14 @@ flutter:
     - assets/images/ThumbsDown.png
     - assets/images/ThumbsUp.png
     - assets/images/recap.png
+    - assets/images/healthTrackRecap.png
+    - assets/images/camera.png
     - assets/images/target.png
     - assets/images/detailDentist.png
     - assets/images/upcomingSchedule.png
     - assets/images/signIn_image.png
+    - assets/images/question1.jpg
+    - assets/images/question2.jpg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 
