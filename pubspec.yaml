@@ -82,6 +82,7 @@ flutter:
     - assets/images/icon_create_pass.svg
     - assets/images/icon_register_code.svg
     - assets/images/icon_email_success.svg
+    - assets/images/article.jpg
     - assets/images/icon_home.svg
     - assets/images/icon_consultation.svg
     - assets/images/icon_habit.svg

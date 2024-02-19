@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:urdentist/presentation/article/article.dart';
+import 'package:urdentist/presentation/consultation/screen/booking.dart';
+import 'package:urdentist/presentation/healthTracker/screen/health_tracker.dart';
 import 'package:urdentist/route/app_router.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -22,17 +25,17 @@ class MyApp extends StatelessWidget {
     initSharedPref();
 
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      // home: CreateQuestion()
-      home: const SafeArea(
-          child: Scaffold(
-        body: AppRouter(),
-      )),
-    );
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: HealthTracker()
+        // home: const SafeArea(
+        //     child: Scaffold(
+        //   body: AppRouter(),
+        // )),
+        );
   }
 }
 

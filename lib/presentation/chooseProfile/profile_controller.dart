@@ -8,6 +8,8 @@ class ProfileController extends GetxController {
   var tanggalLahir = "";
   var alamat = "";
   var alergi = "";
+  String tahun = "";
+  String bulan = "";
 
   var profileId = 0;
 

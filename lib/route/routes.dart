@@ -21,4 +21,7 @@ class Routes {
   static const ANSWER_SCREEN = "/answer";
   static const DETAILDENTIST_SCREEN = "/detaildentist";
   static const CREATEQUESTION_SCREEN = "/createquestion";
+  static const BOOKING_SCREEN = "/booking";
+  static const ARTICLE_SCREEN = "/article";
+  static const HEALTHTRACKET_SCREEN = "/healttracker";
 }

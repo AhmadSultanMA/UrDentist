@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 // import 'package:go_router/go_router.dart';
 // import 'package:urdentist/data/model/response/profile/profile_response.dart';
 import 'package:urdentist/data/repository/daily_task.dart';
 import 'package:urdentist/presentation/chooseProfile/profile_controller.dart';
 import 'package:urdentist/presentation/homepage/task_controller.dart';
+import 'package:urdentist/route/routes.dart';
 // import 'package:urdentist/route/routes.dart';
 
 class HomePage extends StatefulWidget {
@@ -17,8 +19,6 @@ class _HomePageState extends State<HomePage> {
   var profileController = Get.find<ProfileController>();
   var taskController = Get.find<TaskController>();
   var date = DateTime.now();
-  String tahun = "";
-  String bulan = "";
 
   @override
   void initState() {
@@ -46,9 +46,9 @@ class _HomePageState extends State<HomePage> {
       umurBulan += 12;
     }
 
-    tahun = '$umurTahun years';
+    profileController.tahun = '$umurTahun years';
     if (umurBulan > 0) {
-      bulan = ' $umurBulan month';
+      profileController.bulan = ' $umurBulan month';
     }
 
     var year = date.year.toString();
@@ -145,7 +145,7 @@ class _HomePageState extends State<HomePage> {
                                             Radius.circular(20)),
                                       ),
                                       child: Text(
-                                        '$tahun and $bulan',
+                                        '${profileController.tahun} and ${profileController.bulan}',
                                         style: TextStyle(
                                           fontSize: width * 0.03,
                                         ),
@@ -291,23 +291,28 @@ class _HomePageState extends State<HomePage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        'assets/images/icon_health_tracker.png',
-                        width: width * 0.25,
-                        height: height * 0.08,
-                      ),
-                      Text(
-                        'Health Tracker',
-                        style: TextStyle(
-                          fontSize: width * 0.036,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
+                  GestureDetector(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          'assets/images/icon_health_tracker.png',
+                          width: width * 0.25,
+                          height: height * 0.08,
                         ),
-                      ),
-                    ],
+                        Text(
+                          'Health Tracker',
+                          style: TextStyle(
+                            fontSize: width * 0.036,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ],
+                    ),
+                    onTap: () {
+                      GoRouter.of(context).go(Routes.HEALTHTRACKET_SCREEN);
+                    },
                   ),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -406,160 +411,170 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
-            Container(
-              margin:
-                  EdgeInsets.only(left: 20, right: 20, bottom: height * 0.01),
-              padding: const EdgeInsets.only(right: 16),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: const BorderRadius.all(Radius.circular(10)),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.2),
-                    spreadRadius: 1,
-                    blurRadius: 1.2,
-                    offset: Offset(0, 0.2),
-                  ),
-                ],
-              ),
-              child: Row(
-                children: [
-                  ClipRRect(
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(10),
-                      bottomLeft: Radius.circular(10),
+            GestureDetector(
+              child: Container(
+                margin:
+                    EdgeInsets.only(left: 20, right: 20, bottom: height * 0.01),
+                padding: const EdgeInsets.only(right: 16),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: const BorderRadius.all(Radius.circular(10)),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.2),
+                      spreadRadius: 1,
+                      blurRadius: 1.2,
+                      offset: Offset(0, 0.2),
                     ),
-                    child: Image.asset(
-                      'assets/images/article1.jpg',
-                      width: width * 0.25,
+                  ],
+                ),
+                child: Row(
+                  children: [
+                    ClipRRect(
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(10),
+                        bottomLeft: Radius.circular(10),
+                      ),
+                      child: Image.asset(
+                        'assets/images/article1.jpg',
+                        width: width * 0.25,
+                      ),
                     ),
-                  ),
-                  SizedBox(width: width * 0.03),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Oral Health',
-                          style: TextStyle(
-                            fontSize: width * 0.03,
-                            color: Colors.blue.shade800,
-                          ),
-                        ),
-                        SizedBox(
-                          height: height * 0.01,
-                        ),
-                        Text(
-                          'Healthy teeth, healthy smile.',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: width * 0.04,
-                          ),
-                        ),
-                        SizedBox(height: height * 0.01),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              '6 January 2024',
-                              style: TextStyle(
-                                fontSize: width * 0.027,
-                                color: Colors.grey.shade600,
-                              ),
+                    SizedBox(width: width * 0.03),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Oral Health',
+                            style: TextStyle(
+                              fontSize: width * 0.03,
+                              color: Colors.blue.shade800,
                             ),
-                            Text(
-                              'Read More',
-                              style: TextStyle(
-                                fontSize: width * 0.027,
-                                color: Colors.blue.shade800,
-                              ),
+                          ),
+                          SizedBox(
+                            height: height * 0.01,
+                          ),
+                          Text(
+                            'Healthy teeth, healthy smile.',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: width * 0.04,
                             ),
-                          ],
-                        ),
-                      ],
+                          ),
+                          SizedBox(height: height * 0.01),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                '6 January 2024',
+                                style: TextStyle(
+                                  fontSize: width * 0.027,
+                                  color: Colors.grey.shade600,
+                                ),
+                              ),
+                              Text(
+                                'Read More',
+                                style: TextStyle(
+                                  fontSize: width * 0.027,
+                                  color: Colors.blue.shade800,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
+              onTap: () {
+                GoRouter.of(context).go(Routes.ARTICLE_SCREEN);
+              },
             ),
-            Container(
-              margin:
-                  EdgeInsets.only(left: 20, right: 20, bottom: height * 0.01),
-              padding: const EdgeInsets.only(right: 16),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: const BorderRadius.all(Radius.circular(10)),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.2),
-                    spreadRadius: 1,
-                    blurRadius: 1.2,
-                    offset: Offset(0, 0.2),
-                  ),
-                ],
-              ),
-              child: Row(
-                children: [
-                  ClipRRect(
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(10),
-                      bottomLeft: Radius.circular(10),
+            GestureDetector(
+              child: Container(
+                margin:
+                    EdgeInsets.only(left: 20, right: 20, bottom: height * 0.01),
+                padding: const EdgeInsets.only(right: 16),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: const BorderRadius.all(Radius.circular(10)),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.2),
+                      spreadRadius: 1,
+                      blurRadius: 1.2,
+                      offset: Offset(0, 0.2),
                     ),
-                    child: Image.asset(
-                      'assets/images/article1.jpg',
-                      width: width * 0.25,
+                  ],
+                ),
+                child: Row(
+                  children: [
+                    ClipRRect(
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(10),
+                        bottomLeft: Radius.circular(10),
+                      ),
+                      child: Image.asset(
+                        'assets/images/article1.jpg',
+                        width: width * 0.25,
+                      ),
                     ),
-                  ),
-                  SizedBox(width: width * 0.03),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Oral Health',
-                          style: TextStyle(
-                            fontSize: width * 0.03,
-                            color: Colors.blue.shade800,
-                          ),
-                        ),
-                        SizedBox(
-                          height: height * 0.01,
-                        ),
-                        Text(
-                          'Healthy teeth, healthy smile.',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: width * 0.04,
-                          ),
-                        ),
-                        SizedBox(height: height * 0.01),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              '6 January 2024',
-                              style: TextStyle(
-                                fontSize: width * 0.027,
-                                color: Colors.grey.shade600,
-                              ),
+                    SizedBox(width: width * 0.03),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Oral Health',
+                            style: TextStyle(
+                              fontSize: width * 0.03,
+                              color: Colors.blue.shade800,
                             ),
-                            Text(
-                              'Read More',
-                              style: TextStyle(
-                                fontSize: width * 0.027,
-                                color: Colors.blue.shade800,
-                              ),
+                          ),
+                          SizedBox(
+                            height: height * 0.01,
+                          ),
+                          Text(
+                            'Healthy teeth, healthy smile.',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: width * 0.04,
                             ),
-                          ],
-                        ),
-                      ],
+                          ),
+                          SizedBox(height: height * 0.01),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                '6 January 2024',
+                                style: TextStyle(
+                                  fontSize: width * 0.027,
+                                  color: Colors.grey.shade600,
+                                ),
+                              ),
+                              Text(
+                                'Read More',
+                                style: TextStyle(
+                                  fontSize: width * 0.027,
+                                  color: Colors.blue.shade800,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            )
+              onTap: () {
+                GoRouter.of(context).go(Routes.ARTICLE_SCREEN);
+              },
+            ),
           ],
         ),
       ),
@@ -568,6 +583,7 @@ class _HomePageState extends State<HomePage> {
 }
 
 // ignore: must_be_immutable
+// dipindah
 class DailyTaskWidget extends StatefulWidget {
   var task;
   String page;

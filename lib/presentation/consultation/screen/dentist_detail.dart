@@ -255,22 +255,27 @@ class _DetailDentistState extends State<DetailDentist> {
                       SizedBox(
                         height: height * 0.02,
                       ),
-                      Container(
-                        padding: EdgeInsets.all(height * 0.018),
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          color: Colors.blue.shade700,
-                          borderRadius:
-                              BorderRadius.all(Radius.circular(width * 0.03)),
-                        ),
-                        child: const Text(
-                          'Book Online Consultation',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            color: Colors.white,
-                            fontSize: 15,
+                      GestureDetector(
+                        child: Container(
+                          padding: EdgeInsets.all(height * 0.018),
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: Colors.blue.shade700,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(width * 0.03)),
+                          ),
+                          child: const Text(
+                            'Book Online Consultation',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white,
+                              fontSize: 15,
+                            ),
                           ),
                         ),
+                        onTap: () {
+                          GoRouter.of(context).go(Routes.BOOKING_SCREEN);
+                        },
                       ),
                       SizedBox(
                         height: height * 0.01,

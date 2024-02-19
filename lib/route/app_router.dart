@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:urdentist/presentation/account/account.dart';
+import 'package:urdentist/presentation/article/article.dart';
 import 'package:urdentist/presentation/chooseProfile/screen/choose_profile.dart';
 import 'package:urdentist/presentation/chooseProfile/screen/create_profile.dart';
 import 'package:urdentist/presentation/consultation/screen/answer.dart';
+import 'package:urdentist/presentation/consultation/screen/booking.dart';
 import 'package:urdentist/presentation/consultation/screen/consultation.dart';
 import 'package:urdentist/global_widgets/scaffold_navbar.dart';
 import 'package:urdentist/presentation/consultation/screen/create_question.dart';
 import 'package:urdentist/presentation/consultation/screen/dentist_detail.dart';
 import 'package:urdentist/presentation/habit/habit.dart';
 import 'package:urdentist/presentation/habit/recapDetail.dart';
+import 'package:urdentist/presentation/healthTracker/screen/health_tracker.dart';
 import 'package:urdentist/presentation/homepage/homepage.dart';
 
 import 'package:urdentist/route/routes.dart';
@@ -152,6 +155,21 @@ class _AppRouterState extends State<AppRouter> {
             parentNavigatorKey: _rootNavKey,
             path: Routes.CREATEQUESTION_SCREEN,
             builder: (context, _) => CreateQuestion(),
+          ),
+          GoRoute(
+            parentNavigatorKey: _rootNavKey,
+            path: Routes.BOOKING_SCREEN,
+            builder: (context, _) => Booking(),
+          ),
+          GoRoute(
+            parentNavigatorKey: _rootNavKey,
+            path: Routes.ARTICLE_SCREEN,
+            builder: (context, _) => Article(),
+          ),
+          GoRoute(
+            parentNavigatorKey: _rootNavKey,
+            path: Routes.HEALTHTRACKET_SCREEN,
+            builder: (context, _) => HealthTracker(),
           ),
         ],
       ),
