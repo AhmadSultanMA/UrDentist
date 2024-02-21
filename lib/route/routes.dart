@@ -24,4 +24,9 @@ class Routes {
   static const BOOKING_SCREEN = "/booking";
   static const ARTICLE_SCREEN = "/article";
   static const HEALTHTRACKET_SCREEN = "/healttracker";
+  static const BOOKSUCCESS_SCREEN = "/booksuccess";
+  static const QUESTION1_SCREEN = "/QUESTION1";
+  static const QUESTION2_SCREEN = "/QUESTION2";
+  static const QUESTION3_SCREEN = "/QUESTION3";
+  static const QUESTION4_SCREEN = "/QUESTION4";
 }

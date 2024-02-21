@@ -5,6 +5,7 @@ import 'package:urdentist/presentation/chooseProfile/profile_controller.dart';
 import 'package:urdentist/presentation/homepage/homepage.dart';
 
 import 'package:go_router/go_router.dart';
+import 'package:urdentist/presentation/homepage/recapController.dart';
 import 'package:urdentist/presentation/homepage/task_controller.dart';
 import 'package:urdentist/route/routes.dart';
 
@@ -34,6 +35,7 @@ class _HabitState extends State<Habit> {
   ];
 
   var profileController = Get.find<ProfileController>();
+  var recapController = Get.find<RecapController>();
   var taskController = Get.put(TaskController());
   var date = DateTime.now();
 
@@ -41,12 +43,28 @@ class _HabitState extends State<Habit> {
   void initState() {
     super.initState();
     fetchData();
+    fetchRecap();
   }
 
   void didChangeDependencies() {
     super.didChangeDependencies();
     print('Dependencies changed');
     fetchData();
+    fetchRecap();
+  }
+
+  Future<void> fetchRecap() async {
+    recapController.profileId = profileController.profile.value.id;
+
+    try {
+      await recapController.getRecap(onSuccess: (data) {
+        recapController.data.value = data;
+      }, onFailed: (err) {
+        print(err);
+      });
+    } catch (error) {
+      print('$error');
+    }
   }
 
   Future<void> fetchData() async {
@@ -208,12 +226,14 @@ class _HabitState extends State<Habit> {
                               SizedBox(
                                 width: width * 0.01,
                               ),
-                              Text(
-                                'Jan - Jun 2024',
-                                style: TextStyle(
-                                    fontSize: width * 0.03,
-                                    color: Colors.grey.shade600),
-                              ),
+                              Obx(() {
+                                return Text(
+                                  '${recapController.data.value.data[0].periode}',
+                                  style: TextStyle(
+                                      fontSize: width * 0.03,
+                                      color: Colors.grey.shade600),
+                                );
+                              })
                             ],
                           ),
                           SizedBox(
@@ -250,28 +270,39 @@ class _HabitState extends State<Habit> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Text(
-                                          '11 Exp Points',
-                                          style: TextStyle(
-                                              color: Colors.blue.shade800,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: width * 0.04),
-                                        ),
+                                        Obx(() {
+                                          return Text(
+                                            '${recapController.data.value.data.first.completedTasks * 5} Exp Points',
+                                            style: TextStyle(
+                                                color: Colors.blue.shade800,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: width * 0.04),
+                                          );
+                                        }),
                                         SizedBox(
                                           height: height * 0.008,
                                         ),
-                                        ClipRRect(
-                                          borderRadius: BorderRadius.circular(
-                                              10), // Sesuaikan dengan radius yang diinginkan
-                                          child: const LinearProgressIndicator(
-                                            value: 11 / 100,
-                                            backgroundColor: Colors.grey,
-                                            valueColor:
-                                                AlwaysStoppedAnimation<Color>(
-                                                    Colors.blue),
-                                            minHeight: 15,
-                                          ),
-                                        ),
+                                        Obx(() {
+                                          return ClipRRect(
+                                            borderRadius: BorderRadius.circular(
+                                                10), // Sesuaikan dengan radius yang diinginkan
+                                            child: LinearProgressIndicator(
+                                              value: recapController
+                                                      .data
+                                                      .value
+                                                      .data
+                                                      .first
+                                                      .completedTasks *
+                                                  5 /
+                                                  100,
+                                              backgroundColor: Colors.grey,
+                                              valueColor:
+                                                  const AlwaysStoppedAnimation<
+                                                      Color>(Colors.blue),
+                                              minHeight: 15,
+                                            ),
+                                          );
+                                        }),
                                         SizedBox(
                                           height: height * 0.008,
                                         ),
@@ -569,71 +600,89 @@ class _HabitState extends State<Habit> {
                         ],
                       ),
                     )
-                  : GestureDetector(
-                      onTap: () {
-                        GoRouter.of(context).go(Routes.RECAPDETAIL_SCREEN);
-                      },
-                      child: Container(
-                        margin: const EdgeInsets.all(16),
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 12, horizontal: 15),
-                        decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.2),
-                                spreadRadius: 1,
-                                blurRadius: 1.2,
-                                offset: Offset(0, 0.2),
+                  : Container(
+                      height: height * 0.7,
+                      child: ListView.builder(
+                        itemCount: recapController.data.value.data.length,
+                        itemBuilder: (context, index) {
+                          var data = recapController.data.value.data[index];
+                          List<String> periodeParts = data.periode.split(' ');
+                          String periodeText =
+                              periodeParts.sublist(0, 3).join(' ');
+                          String tahunText = periodeParts[3];
+                          return GestureDetector(
+                            onTap: () {
+                              GoRouter.of(context)
+                                  .go(Routes.RECAPDETAIL_SCREEN);
+                            },
+                            child: Container(
+                              margin: const EdgeInsets.all(16),
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 12, horizontal: 15),
+                              decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.2),
+                                    spreadRadius: 1,
+                                    blurRadius: 1.2,
+                                    offset: Offset(0, 0.2),
+                                  ),
+                                ],
+                                color: Colors.blue.shade50,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10)),
                               ),
-                            ],
-                            color: Colors.blue.shade50,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
-                        child: Column(
-                          children: [
-                            Row(
-                              children: [
-                                Image.asset(
-                                  'assets/images/recap.png',
-                                  width: width * 0.22,
-                                ),
-                                SizedBox(
-                                  width: width * 0.02,
-                                ),
-                                Expanded(
-                                    child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'July - December',
-                                      style: TextStyle(
-                                          color: Colors.blue.shade800,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: width * 0.04),
-                                    ),
-                                    SizedBox(
-                                      height: height * 0.008,
-                                    ),
-                                    Text(
-                                      '2023',
-                                      style: TextStyle(
-                                          color: Colors.blue.shade800,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: width * 0.04),
-                                    ),
-                                  ],
-                                )),
-                                Icon(
-                                  Icons.chevron_right,
-                                  size: 35,
-                                  color: Colors.blue.shade800,
-                                ),
-                              ],
+                              child: Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Image.asset(
+                                        'assets/images/recap.png',
+                                        width: width * 0.22,
+                                      ),
+                                      SizedBox(
+                                        width: width * 0.02,
+                                      ),
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              periodeText,
+                                              style: TextStyle(
+                                                color: Colors.blue.shade800,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: width * 0.04,
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              height: height * 0.008,
+                                            ),
+                                            Text(
+                                              tahunText,
+                                              style: TextStyle(
+                                                color: Colors.blue.shade800,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: width * 0.04,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Icon(
+                                        Icons.chevron_right,
+                                        size: 35,
+                                        color: Colors.blue.shade800,
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
-                          ],
-                        ),
-                      ),
-                    )
+                          );
+                        },
+                      ))
             ],
           ),
         ));
@@ -716,6 +765,7 @@ class _ExtraTaskWidgetState extends State<ExtraTaskWidget> {
                             onSuccess: (msg) {
                               print(msg);
                               habit.fetchData();
+                              habit.fetchRecap();
                             },
                             onFailed: (msg) {
                               print(msg);

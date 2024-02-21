@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:urdentist/data/model/request/appointment/appointment_request.dart';
 import 'package:urdentist/data/model/request/forgot_password/forgot_password_request.dart';
 // import 'package:urdentist/data/model/request/login/login_google_request.dart';
 
@@ -14,6 +15,7 @@ import 'package:urdentist/data/model/request/verify_password/verify_password_req
 // import 'package:urdentist/data/model/response/login/login_google_response.dart';
 import 'package:urdentist/data/model/response/profile/profile_response.dart';
 import 'package:urdentist/data/model/response/question/question_response.dart';
+import 'package:urdentist/data/model/response/recap/recap_response.dart';
 import 'package:urdentist/data/model/response/task/task_response.dart';
 import 'package:urdentist/data/repository/retrofit_client.dart';
 import 'package:urdentist/data/repository/user.dart';
@@ -350,6 +352,46 @@ class Repository {
       onSuccess(value);
     }).catchError((error) {
       onFailed("$error");
+    });
+  }
+
+  void getRecap(
+    int profileId, {
+    required Function(RecapResponse) onSuccess,
+    required Function(String) onFailed,
+  }) {
+    client.getRecap(profileId).then((value) {
+      onSuccess(value);
+    }).catchError((error) {
+      onFailed('gagal recap: $error');
+    });
+  }
+
+  void appointment(
+    int profileId,
+    int onlineConsultationID, {
+    required Function(int) onSuccess,
+    required Function(String) onFailed,
+  }) {
+    client
+        .appointment(profileId,
+            AppointmentRequest(onlineConsultationID: onlineConsultationID))
+        .then((value) {
+      onSuccess(value.id);
+    }).catchError((error) {
+      onFailed('$error');
+    });
+  }
+
+  void payment(
+    int paymentId, {
+    required Function(String) onSuccess,
+    required Function(String) onFailed,
+  }) {
+    client.payment(paymentId).then((value) {
+      onSuccess(value.message);
+    }).catchError((err) {
+      onFailed(err);
     });
   }
 }

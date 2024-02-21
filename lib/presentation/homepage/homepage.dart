@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 // import 'package:urdentist/data/model/response/profile/profile_response.dart';
 import 'package:urdentist/data/repository/daily_task.dart';
 import 'package:urdentist/presentation/chooseProfile/profile_controller.dart';
+import 'package:urdentist/presentation/homepage/recapController.dart';
 import 'package:urdentist/presentation/homepage/task_controller.dart';
 import 'package:urdentist/route/routes.dart';
 // import 'package:urdentist/route/routes.dart';
@@ -18,18 +19,35 @@ class _HomePageState extends State<HomePage> {
   int currentIndex = 0;
   var profileController = Get.find<ProfileController>();
   var taskController = Get.find<TaskController>();
+  var recapController = Get.put(RecapController());
   var date = DateTime.now();
 
   @override
   void initState() {
     super.initState();
     fetchData();
+    fetchRecap();
   }
 
   void didChangeDependencies() {
     super.didChangeDependencies();
     print('Dependencies changed');
     fetchData();
+    fetchRecap();
+  }
+
+  Future<void> fetchRecap() async {
+    recapController.profileId = profileController.profile.value.id;
+
+    try {
+      await recapController.getRecap(onSuccess: (data) {
+        recapController.data.value = data;
+      }, onFailed: (err) {
+        print(err);
+      });
+    } catch (error) {
+      print('$error');
+    }
   }
 
   Future<void> fetchData() async {
@@ -203,27 +221,35 @@ class _HomePageState extends State<HomePage> {
                                 child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  '11 Exp Points',
-                                  style: TextStyle(
-                                      color: Colors.blue.shade800,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: width * 0.04),
-                                ),
+                                Obx(() {
+                                  return Text(
+                                    '${recapController.data.value.data.first.completedTasks * 5} Exp Points',
+                                    style: TextStyle(
+                                        color: Colors.blue.shade800,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: width * 0.04),
+                                  );
+                                }),
                                 SizedBox(
                                   height: height * 0.008,
                                 ),
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(
-                                      10), // Sesuaikan dengan radius yang diinginkan
-                                  child: const LinearProgressIndicator(
-                                    value: 11 / 100,
-                                    backgroundColor: Colors.grey,
-                                    valueColor: AlwaysStoppedAnimation<Color>(
-                                        Colors.blue),
-                                    minHeight: 15,
-                                  ),
-                                ),
+                                Obx(() {
+                                  return ClipRRect(
+                                    borderRadius: BorderRadius.circular(
+                                        10), // Sesuaikan dengan radius yang diinginkan
+                                    child: LinearProgressIndicator(
+                                      value: recapController.data.value.data
+                                              .first.completedTasks *
+                                          5 /
+                                          100,
+                                      backgroundColor: Colors.grey,
+                                      valueColor:
+                                          const AlwaysStoppedAnimation<Color>(
+                                              Colors.blue),
+                                      minHeight: 15,
+                                    ),
+                                  );
+                                }),
                                 SizedBox(
                                   height: height * 0.008,
                                 ),
@@ -332,24 +358,29 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ],
                   ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        'assets/images/icon_dentist.png',
-                        width: width * 0.25,
-                        height: height * 0.08,
-                      ),
-                      Text(
-                        'Find Dentist',
-                        style: TextStyle(
-                          fontSize: width * 0.036,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
+                  GestureDetector(
+                    onTap: () {
+                      GoRouter.of(context).go(Routes.CONSULTATION_SCREEN);
+                    },
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          'assets/images/icon_dentist.png',
+                          width: width * 0.25,
+                          height: height * 0.08,
                         ),
-                      ),
-                    ],
-                  ),
+                        Text(
+                          'Find Dentist',
+                          style: TextStyle(
+                            fontSize: width * 0.036,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
                 ],
               ),
             ),
@@ -364,11 +395,16 @@ class _HomePageState extends State<HomePage> {
                     style: TextStyle(
                         fontWeight: FontWeight.bold, fontSize: width * 0.055),
                   ),
-                  Text('View More',
-                      style: TextStyle(
-                          fontSize: width * 0.035,
-                          color: Colors.blue.shade800,
-                          fontWeight: FontWeight.w600))
+                  GestureDetector(
+                    child: Text('View More',
+                        style: TextStyle(
+                            fontSize: width * 0.035,
+                            color: Colors.blue.shade800,
+                            fontWeight: FontWeight.w600)),
+                    onTap: () {
+                      GoRouter.of(context).go(Routes.HABIT_SCREEN);
+                    },
+                  )
                 ],
               ),
             ),
@@ -379,12 +415,55 @@ class _HomePageState extends State<HomePage> {
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.done) {
                       // Widget yang akan ditampilkan setelah fetchData selesai
-                      return Column(
-                        children: taskController.dailyTasks.map((task) {
-                          task.updateStatus();
-                          return DailyTaskWidget(task, 'home');
-                        }).toList(),
-                      );
+
+                      return taskController.dailyTasks == [] ||
+                              taskController.dailyTasks == null
+                          ? Column(
+                              children: taskController.dailyTasks.map((task) {
+                                task.updateStatus();
+                                return DailyTaskWidget(task, 'home');
+                              }).toList(),
+                            )
+                          : Container(
+                              alignment: Alignment.centerLeft,
+                              padding: EdgeInsets.all(16),
+                              decoration: BoxDecoration(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10)),
+                                  color:
+                                      Colors.yellow.shade50.withOpacity(0.4)),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "You've finished all your daily tasks 🎉",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: width * 0.043),
+                                  ),
+                                  Text.rich(
+                                    TextSpan(
+                                      text: 'Click ',
+                                      style: TextStyle(
+                                          color: Colors.grey.shade600),
+                                      children: <TextSpan>[
+                                        TextSpan(
+                                          text: '"View More"',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.grey.shade600),
+                                        ),
+                                        TextSpan(
+                                          text:
+                                              ' to complete additional tasks and earn points.',
+                                          style: TextStyle(
+                                              color: Colors.grey.shade600),
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ));
                     } else {
                       // Widget atau indikator loading sementara fetchData berjalan
                       return CircularProgressIndicator();
@@ -665,6 +744,7 @@ class _DailyTaskWidgetState extends State<DailyTaskWidget> {
                                 onSuccess: (msg) {
                                   print(msg);
                                   home.fetchData();
+                                  home.fetchRecap();
                                 },
                                 onFailed: (msg) {
                                   print(msg);

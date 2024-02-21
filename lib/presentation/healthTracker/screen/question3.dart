@@ -9,6 +9,7 @@ class Question3 extends StatefulWidget {
 }
 
 class _Question3State extends State<Question3> {
+  String jawab = "";
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -47,41 +48,57 @@ class _Question3State extends State<Question3> {
             SizedBox(
               height: height * 0.02,
             ),
-            Container(
-              alignment: Alignment.center,
-              padding: EdgeInsets.symmetric(vertical: 10),
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  border: Border.all(color: Colors.blue.shade600, width: 2),
-                  borderRadius: BorderRadius.all(Radius.circular(10))),
-              child: Text(
-                "Yes",
-                style: TextStyle(
-                    fontSize: width * 0.05,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.blue.shade600),
-                textAlign: TextAlign.center,
+            GestureDetector(
+              onTap: () {
+                setState(() {
+                  jawab = "yes";
+                });
+              },
+              child: Container(
+                alignment: Alignment.center,
+                padding: EdgeInsets.symmetric(vertical: 10),
+                decoration: BoxDecoration(
+                    color: jawab == "yes" ? Colors.blue.shade600 : Colors.white,
+                    border: Border.all(color: Colors.blue.shade600, width: 2),
+                    borderRadius: BorderRadius.all(Radius.circular(10))),
+                child: Text(
+                  "Yes",
+                  style: TextStyle(
+                      fontSize: width * 0.05,
+                      fontWeight: FontWeight.bold,
+                      color:
+                          jawab == "yes" ? Colors.white : Colors.blue.shade600),
+                  textAlign: TextAlign.center,
+                ),
               ),
             ),
             SizedBox(
               height: height * 0.01,
             ),
-            Container(
-              alignment: Alignment.center,
-              padding: EdgeInsets.symmetric(vertical: 10),
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  border: Border.all(color: Colors.blue.shade600, width: 2),
-                  borderRadius: BorderRadius.all(Radius.circular(10))),
-              child: Text(
-                "No",
-                style: TextStyle(
-                    fontSize: width * 0.05,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.blue.shade600),
-                textAlign: TextAlign.center,
+            GestureDetector(
+              onTap: () {
+                setState(() {
+                  jawab = "no";
+                });
+              },
+              child: Container(
+                alignment: Alignment.center,
+                padding: EdgeInsets.symmetric(vertical: 10),
+                decoration: BoxDecoration(
+                    color: jawab == "no" ? Colors.blue.shade600 : Colors.white,
+                    border: Border.all(color: Colors.blue.shade600, width: 2),
+                    borderRadius: BorderRadius.all(Radius.circular(10))),
+                child: Text(
+                  "No",
+                  style: TextStyle(
+                      fontSize: width * 0.05,
+                      fontWeight: FontWeight.bold,
+                      color:
+                          jawab == "no" ? Colors.white : Colors.blue.shade600),
+                  textAlign: TextAlign.center,
+                ),
               ),
-            ),
+            )
           ],
         ),
       )),
@@ -89,15 +106,15 @@ class _Question3State extends State<Question3> {
         width: 120,
         child: FloatingActionButton(
           onPressed: () {
-            // Implement your submit functionality here
+            jawab != "" ? GoRouter.of(context).go(Routes.QUESTION4_SCREEN) : "";
           },
-          backgroundColor: Colors.blue.shade600,
+          backgroundColor: jawab != "" ? Colors.blue.shade600 : Colors.white,
           child: Container(
             padding: EdgeInsets.symmetric(vertical: 10),
             child: Text(
               'Next',
               style: TextStyle(
-                  color: Colors.white,
+                  color: jawab != "" ? Colors.white : Colors.grey.shade600,
                   fontSize: width * 0.04,
                   fontWeight: FontWeight.bold),
             ),

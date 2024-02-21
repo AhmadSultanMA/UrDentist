@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/http.dart';
+import 'package:urdentist/data/model/request/appointment/appointment_request.dart';
 
 import 'package:urdentist/data/model/request/forgot_password/forgot_password_request.dart';
 // import 'package:urdentist/data/model/request/login/login_google_request.dart';
@@ -11,6 +12,7 @@ import 'package:urdentist/data/model/request/reset_password/reset_password_reque
 import 'package:urdentist/data/model/request/verify/verify_request.dart';
 import 'package:urdentist/data/model/request/verify/resend_verify_request.dart';
 import 'package:urdentist/data/model/request/verify_password/verify_password_request.dart';
+import 'package:urdentist/data/model/response/appointment/appointment_response.dart';
 import 'package:urdentist/data/model/response/baseResponse/base_response.dart';
 
 import 'package:urdentist/data/model/response/forgot_password/forgot_password_response.dart';
@@ -18,6 +20,7 @@ import 'package:urdentist/data/model/response/forgot_password/forgot_password_re
 import 'package:urdentist/data/model/response/login/login_response.dart';
 import 'package:urdentist/data/model/response/profile/profile_response.dart';
 import 'package:urdentist/data/model/response/question/question_response.dart';
+import 'package:urdentist/data/model/response/recap/recap_response.dart';
 import 'package:urdentist/data/model/response/register/register_response.dart';
 import 'package:urdentist/data/model/response/reset_password/reset_password_response.dart';
 import 'package:urdentist/data/model/response/task/task_response.dart';
@@ -107,4 +110,14 @@ abstract class RetrofitClient {
 
   @GET("/question/{questionId}")
   Future<QuestionResponse> getQuestionId(@Path("questionId") int questionId);
+
+  @GET("/profile/{profileId}/completedTasks")
+  Future<RecapResponse> getRecap(@Path("profileId") int profileId);
+
+  @POST("/profile/{profileId}/appointment")
+  Future<AppointmentResponse> appointment(
+      @Path("profileId") int profileId, @Body() AppointmentRequest request);
+
+  @PUT("/paymentsdummy/{paymentId}")
+  Future<BaseResponse> payment(@Path("paymentId") int paymentId);
 }

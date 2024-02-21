@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
+import 'package:urdentist/presentation/authentication/screen/register.dart';
+import 'package:urdentist/presentation/chooseProfile/profile_controller.dart';
+import 'package:urdentist/presentation/consultation/booking_controller.dart';
 import 'package:urdentist/route/routes.dart';
 
 class Booking extends StatefulWidget {
@@ -12,6 +16,156 @@ class _BookingState extends State<Booking> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
+
+    var profileController = Get.find<ProfileController>();
+    var bookingController = Get.put(BookingController());
+
+    void _showPopup() {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: Container(
+              height: height * 0.3,
+              child: Column(children: [
+                Container(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'Payment Method',
+                    style: TextStyle(
+                        fontSize: width * 0.05, fontWeight: FontWeight.w600),
+                  ),
+                ),
+                SizedBox(
+                  height: height * 0.01,
+                ),
+                Row(
+                  children: [
+                    Image.asset(
+                      'assets/images/gopay.jpg',
+                      width: width * 0.15,
+                    ),
+                    SizedBox(
+                      width: width * 0.04,
+                    ),
+                    Text(
+                      'GoPay',
+                      style: TextStyle(
+                          fontSize: width * 0.045,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.grey.shade700),
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: height * 0.01,
+                ),
+                Container(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'Rincian Pembayaran',
+                    style: TextStyle(
+                        fontSize: width * 0.04, fontWeight: FontWeight.w600),
+                  ),
+                ),
+                SizedBox(
+                  height: height * 0.005,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Online Consultation',
+                      style: TextStyle(color: Colors.grey.shade700),
+                    ),
+                    const Text(
+                      'Rp. 25.000',
+                      style: TextStyle(fontWeight: FontWeight.w600),
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: height * 0.005,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Services fee 5%',
+                      style: TextStyle(color: Colors.grey.shade700),
+                    ),
+                    const Text(
+                      'Rp. 1.250',
+                      style: TextStyle(fontWeight: FontWeight.w600),
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: height * 0.01,
+                ),
+                Container(
+                  height: 1,
+                  width: width * 1,
+                  color: Colors.grey.shade400,
+                ),
+                SizedBox(
+                  height: height * 0.01,
+                ),
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Total',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      'Rp. 26.250',
+                      style: TextStyle(fontWeight: FontWeight.w600),
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: height * 0.02,
+                ),
+                Obx(() {
+                  return bookingController.isLoading2.value
+                      ? const CircularProgressIndicator()
+                      : GestureDetector(
+                          onTap: () {
+                            bookingController.payment(onSuccess: (msg) {
+                              Navigator.of(context).pop();
+                              showMySnackbar(context, msg);
+                              GoRouter.of(context)
+                                  .go(Routes.BOOKSUCCESS_SCREEN);
+                            }, onFailed: (msg) {
+                              showMySnackbar(context, 'failed');
+                              Navigator.of(context).pop();
+                            });
+                          },
+                          child: Container(
+                              padding: EdgeInsets.symmetric(vertical: 8),
+                              decoration: BoxDecoration(
+                                  color: Colors.blue.shade700,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10))),
+                              alignment: Alignment.center,
+                              child: Text(
+                                'Pay',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: width * 0.045,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.white,
+                                ),
+                              )),
+                        );
+                })
+              ]),
+            ),
+          );
+        },
+      );
+    }
 
     return Scaffold(
         backgroundColor: Colors.white,
@@ -257,33 +411,45 @@ class _BookingState extends State<Booking> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                    child: Text(
-                      'Rp. 25.000',
-                      style: TextStyle(
-                        fontSize: width * 0.05,
-                        fontWeight: FontWeight.bold,
-                      ),
+                  Text(
+                    'Rp. 25.000',
+                    style: TextStyle(
+                      fontSize: width * 0.05,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                   SizedBox(
                     width: width * 0.02,
                   ),
-                  Container(
-                    padding: EdgeInsets.symmetric(vertical: 12, horizontal: 48),
-                    decoration: BoxDecoration(
-                        color: Colors.blue.shade500,
-                        border:
-                            Border.all(color: Colors.blue.shade500, width: 2),
-                        borderRadius: BorderRadius.all(Radius.circular(10))),
-                    child: Text(
-                      'Book',
-                      style: TextStyle(
-                          fontSize: width * 0.045,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.white),
-                    ),
-                  )
+                  GestureDetector(
+                      onTap: () {
+                        bookingController
+                            .appoinment(profileController.profile.value.id,
+                                onSuccess: (id) {
+                          bookingController.paymentId = id;
+                          _showPopup();
+                          showMySnackbar(context, 'berhasil');
+                        }, onFailed: (err) {
+                          showMySnackbar(context, err);
+                        });
+                      },
+                      child: Container(
+                        padding:
+                            EdgeInsets.symmetric(vertical: 12, horizontal: 48),
+                        decoration: BoxDecoration(
+                            color: Colors.blue.shade500,
+                            border: Border.all(
+                                color: Colors.blue.shade500, width: 2),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10))),
+                        child: Text(
+                          'Book',
+                          style: TextStyle(
+                              fontSize: width * 0.045,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.white),
+                        ),
+                      ))
                 ],
               ),
             ],

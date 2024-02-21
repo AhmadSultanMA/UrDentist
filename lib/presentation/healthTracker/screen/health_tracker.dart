@@ -221,32 +221,37 @@ class _HealthTrackerState extends State<HealthTracker> {
               SizedBox(
                 height: height * 0.02,
               ),
-              Container(
-                  alignment: Alignment.center,
-                  padding: EdgeInsets.symmetric(vertical: 10),
-                  decoration: BoxDecoration(
-                      color: Colors.blue.shade600,
-                      borderRadius: BorderRadius.all(Radius.circular(10))),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Take a Test",
-                        style: TextStyle(
-                            fontSize: width * 0.05,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),
-                        textAlign: TextAlign.center,
-                      ),
-                      SizedBox(
-                        width: width * 0.02,
-                      ),
-                      Icon(
-                        Icons.arrow_forward,
-                        color: Colors.white,
-                      )
-                    ],
-                  )),
+              GestureDetector(
+                onTap: () {
+                  GoRouter.of(context).go(Routes.QUESTION1_SCREEN);
+                },
+                child: Container(
+                    alignment: Alignment.center,
+                    padding: EdgeInsets.symmetric(vertical: 10),
+                    decoration: BoxDecoration(
+                        color: Colors.blue.shade600,
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Take a Test",
+                          style: TextStyle(
+                              fontSize: width * 0.05,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
+                          textAlign: TextAlign.center,
+                        ),
+                        SizedBox(
+                          width: width * 0.02,
+                        ),
+                        Icon(
+                          Icons.arrow_forward,
+                          color: Colors.white,
+                        )
+                      ],
+                    )),
+              )
             ],
           ),
         )));

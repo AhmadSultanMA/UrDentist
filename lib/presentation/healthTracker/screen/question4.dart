@@ -9,6 +9,8 @@ class Question4 extends StatefulWidget {
 }
 
 class _Question4State extends State<Question4> {
+  String jawab = "";
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -57,6 +59,11 @@ class _Question4State extends State<Question4> {
                 borderRadius: BorderRadius.all(Radius.circular(width * 0.03)),
               ),
               child: TextFormField(
+                onChanged: (s) {
+                  setState(() {
+                    jawab = s;
+                  });
+                },
                 decoration: InputDecoration(
                   border: InputBorder.none,
                   isDense: true,
@@ -82,15 +89,17 @@ class _Question4State extends State<Question4> {
         width: 120,
         child: FloatingActionButton(
           onPressed: () {
-            // Implement your submit functionality here
+            jawab != ""
+                ? GoRouter.of(context).go(Routes.HEALTHTRACKET_SCREEN)
+                : "";
           },
-          backgroundColor: Colors.blue.shade600,
+          backgroundColor: jawab != "" ? Colors.blue.shade600 : Colors.white,
           child: Container(
             padding: EdgeInsets.symmetric(vertical: 10),
             child: Text(
-              'Submit',
+              'Next',
               style: TextStyle(
-                  color: Colors.white,
+                  color: jawab != "" ? Colors.white : Colors.grey.shade600,
                   fontSize: width * 0.04,
                   fontWeight: FontWeight.bold),
             ),
