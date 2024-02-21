@@ -280,24 +280,29 @@ class _DetailDentistState extends State<DetailDentist> {
                       SizedBox(
                         height: height * 0.01,
                       ),
-                      Container(
-                        padding: EdgeInsets.all(height * 0.018),
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.blue.shade700),
-                          color: Colors.white,
-                          borderRadius:
-                              BorderRadius.all(Radius.circular(width * 0.03)),
-                        ),
-                        child: Text(
-                          'Book Offline Consultation',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            color: Colors.blue.shade700,
-                            fontSize: 15,
+                      GestureDetector(
+                        onTap: () {
+                          GoRouter.of(context).go(Routes.COMINGSOON_SCREEN);
+                        },
+                        child: Container(
+                          padding: EdgeInsets.all(height * 0.018),
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.blue.shade700),
+                            color: Colors.white,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(width * 0.03)),
+                          ),
+                          child: Text(
+                            'Book Offline Consultation',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              color: Colors.blue.shade700,
+                              fontSize: 15,
+                            ),
                           ),
                         ),
-                      ),
+                      )
                     ],
                   )),
             )

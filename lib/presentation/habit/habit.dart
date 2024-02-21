@@ -415,13 +415,19 @@ class _HabitState extends State<Habit> {
                                         SizedBox(
                                           height: height * 0.01,
                                         ),
-                                        Container(
-                                          alignment: Alignment.centerRight,
-                                          child: Text(
-                                            'See Details',
-                                            style: TextStyle(
-                                                fontSize: width * 0.028,
-                                                color: Colors.blue.shade600),
+                                        GestureDetector(
+                                          onTap: () {
+                                            GoRouter.of(context)
+                                                .go(Routes.COMINGSOON_SCREEN);
+                                          },
+                                          child: Container(
+                                            alignment: Alignment.centerRight,
+                                            child: Text(
+                                              'See Details',
+                                              style: TextStyle(
+                                                  fontSize: width * 0.028,
+                                                  color: Colors.blue.shade600),
+                                            ),
                                           ),
                                         )
                                       ],

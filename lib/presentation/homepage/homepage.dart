@@ -497,11 +497,15 @@ class _HomePageState extends State<HomePage> {
                     style: TextStyle(
                         fontWeight: FontWeight.bold, fontSize: width * 0.055),
                   ),
-                  Text('View More',
-                      style: TextStyle(
-                          fontSize: width * 0.035,
-                          color: Colors.blue.shade800,
-                          fontWeight: FontWeight.w600))
+                  GestureDetector(
+                      onTap: () {
+                        GoRouter.of(context).go(Routes.COMINGSOON_SCREEN);
+                      },
+                      child: Text('View More',
+                          style: TextStyle(
+                              fontSize: width * 0.035,
+                              color: Colors.blue.shade800,
+                              fontWeight: FontWeight.w600)))
                 ],
               ),
             ),

@@ -91,6 +91,7 @@ flutter:
     - assets/images/icon_calendar.svg
     - assets/images/icon_hospital.svg
     - assets/images/book_success.svg
+    - assets/images/comingsoon.svg
     - assets/images/Logo.svg
     - assets/images/splash.svg
     - assets/images/task1.png

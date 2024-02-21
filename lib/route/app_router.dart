@@ -5,6 +5,7 @@ import 'package:urdentist/presentation/carierDetector/carier_detector.dart';
 import 'package:urdentist/presentation/carierDetector/result.dart';
 import 'package:urdentist/presentation/chooseProfile/screen/choose_profile.dart';
 import 'package:urdentist/presentation/chooseProfile/screen/create_profile.dart';
+import 'package:urdentist/presentation/comingsoon/comingsoon.dart';
 import 'package:urdentist/presentation/consultation/screen/answer.dart';
 import 'package:urdentist/presentation/consultation/screen/book_success.dart';
 import 'package:urdentist/presentation/consultation/screen/booking.dart';
@@ -212,6 +213,11 @@ class _AppRouterState extends State<AppRouter> {
             parentNavigatorKey: _rootNavKey,
             path: Routes.RESULT_SCREEN,
             builder: (context, _) => ResultScreen(),
+          ),
+          GoRoute(
+            parentNavigatorKey: _rootNavKey,
+            path: Routes.COMINGSOON_SCREEN,
+            builder: (context, _) => ComingSoon(),
           ),
         ],
       ),

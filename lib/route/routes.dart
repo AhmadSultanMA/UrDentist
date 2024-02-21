@@ -31,4 +31,6 @@ class Routes {
   static const QUESTION4_SCREEN = "/QUESTION4";
   static const CARIERDETECT_SCREEN = "/carierdetect";
   static const RESULT_SCREEN = "/result";
+
+  static const COMINGSOON_SCREEN = "/comingsoon";
 }

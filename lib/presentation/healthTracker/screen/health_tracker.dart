@@ -103,20 +103,25 @@ class _HealthTrackerState extends State<HealthTracker> {
                           SizedBox(
                             height: height * 0.01,
                           ),
-                          Container(
-                            alignment: Alignment.center,
-                            padding: EdgeInsets.symmetric(vertical: 5),
-                            decoration: BoxDecoration(
-                                color: Colors.blue.shade600,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10))),
-                            child: Text(
-                              "See",
-                              style: TextStyle(
-                                  fontSize: width * 0.035,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white),
-                              textAlign: TextAlign.center,
+                          GestureDetector(
+                            onTap: () {
+                              GoRouter.of(context).go(Routes.COMINGSOON_SCREEN);
+                            },
+                            child: Container(
+                              alignment: Alignment.center,
+                              padding: EdgeInsets.symmetric(vertical: 5),
+                              decoration: BoxDecoration(
+                                  color: Colors.blue.shade600,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10))),
+                              child: Text(
+                                "See",
+                                style: TextStyle(
+                                    fontSize: width * 0.035,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white),
+                                textAlign: TextAlign.center,
+                              ),
                             ),
                           ),
                           SizedBox(
@@ -158,20 +163,25 @@ class _HealthTrackerState extends State<HealthTracker> {
                           SizedBox(
                             height: height * 0.01,
                           ),
-                          Container(
-                            alignment: Alignment.center,
-                            padding: EdgeInsets.symmetric(vertical: 5),
-                            decoration: BoxDecoration(
-                                color: Colors.blue.shade600,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10))),
-                            child: Text(
-                              "See",
-                              style: TextStyle(
-                                  fontSize: width * 0.035,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white),
-                              textAlign: TextAlign.center,
+                          GestureDetector(
+                            onTap: () {
+                              GoRouter.of(context).go(Routes.COMINGSOON_SCREEN);
+                            },
+                            child: Container(
+                              alignment: Alignment.center,
+                              padding: EdgeInsets.symmetric(vertical: 5),
+                              decoration: BoxDecoration(
+                                  color: Colors.blue.shade600,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10))),
+                              child: Text(
+                                "See",
+                                style: TextStyle(
+                                    fontSize: width * 0.035,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white),
+                                textAlign: TextAlign.center,
+                              ),
                             ),
                           ),
                           SizedBox(

@@ -32,7 +32,7 @@ Widget AppNavbar(String selectedRoute, Function(String route) onItemClicked) {
         word: "Habit"),
     AppNavbarItem(
       icon: "assets/images/icon_account.svg",
-      route: Routes.ACCOUNT_SCREEN,
+      route: Routes.COMINGSOON_SCREEN,
       word: "Account",
     ),
   ];
