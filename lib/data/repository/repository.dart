@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:urdentist/data/model/request/appointment/appointment_request.dart';
@@ -9,6 +11,7 @@ import 'package:urdentist/data/model/request/profile/create_profile_request.dart
 import 'package:urdentist/data/model/request/question/question_request.dart';
 import 'package:urdentist/data/model/request/register/register_request.dart';
 import 'package:urdentist/data/model/request/reset_password/reset_password_request.dart';
+import 'package:urdentist/data/model/request/upload/upload_request.dart';
 import 'package:urdentist/data/model/request/verify/verify_request.dart';
 import 'package:urdentist/data/model/request/verify/resend_verify_request.dart';
 import 'package:urdentist/data/model/request/verify_password/verify_password_request.dart';
@@ -17,6 +20,7 @@ import 'package:urdentist/data/model/response/profile/profile_response.dart';
 import 'package:urdentist/data/model/response/question/question_response.dart';
 import 'package:urdentist/data/model/response/recap/recap_response.dart';
 import 'package:urdentist/data/model/response/task/task_response.dart';
+import 'package:urdentist/data/model/response/upload/upload_response.dart';
 import 'package:urdentist/data/repository/retrofit_client.dart';
 import 'package:urdentist/data/repository/user.dart';
 
@@ -392,6 +396,21 @@ class Repository {
       onSuccess(value.message);
     }).catchError((err) {
       onFailed(err);
+    });
+  }
+
+  void carierDetector(
+    File myFile,
+    String text, {
+    required Function(UploadResponse) onSuccess,
+    required Function(String) onFailed,
+  }) {
+    client.carierDetector(myFile, text).then((value) {
+      onSuccess(value);
+    }).catchError((err) {
+      onFailed('error in carier detector: $err');
+      print('$text');
+      print('$myFile');
     });
   }
 }

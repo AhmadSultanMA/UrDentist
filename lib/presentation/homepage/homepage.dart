@@ -222,33 +222,43 @@ class _HomePageState extends State<HomePage> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Obx(() {
-                                  return Text(
-                                    '${recapController.data.value.data.first.completedTasks * 5} Exp Points',
-                                    style: TextStyle(
+                                  if (recapController
+                                      .data.value.data.isNotEmpty) {
+                                    return Text(
+                                      '${recapController.data.value.data.first.completedTasks * 5} Exp Points',
+                                      style: TextStyle(
                                         color: Colors.blue.shade800,
                                         fontWeight: FontWeight.bold,
-                                        fontSize: width * 0.04),
-                                  );
+                                        fontSize: width * 0.04,
+                                      ),
+                                    );
+                                  } else {
+                                    return Text('0');
+                                  }
                                 }),
                                 SizedBox(
                                   height: height * 0.008,
                                 ),
                                 Obx(() {
-                                  return ClipRRect(
-                                    borderRadius: BorderRadius.circular(
-                                        10), // Sesuaikan dengan radius yang diinginkan
-                                    child: LinearProgressIndicator(
-                                      value: recapController.data.value.data
-                                              .first.completedTasks *
-                                          5 /
-                                          100,
-                                      backgroundColor: Colors.grey,
-                                      valueColor:
-                                          const AlwaysStoppedAnimation<Color>(
-                                              Colors.blue),
-                                      minHeight: 15,
-                                    ),
-                                  );
+                                  if (recapController
+                                      .data.value.data.isNotEmpty) {
+                                    return ClipRRect(
+                                      borderRadius: BorderRadius.circular(10),
+                                      child: LinearProgressIndicator(
+                                        value: recapController.data.value.data
+                                                .first.completedTasks *
+                                            5 /
+                                            100,
+                                        backgroundColor: Colors.grey,
+                                        valueColor:
+                                            const AlwaysStoppedAnimation<Color>(
+                                                Colors.blue),
+                                        minHeight: 15,
+                                      ),
+                                    );
+                                  } else {
+                                    return SizedBox();
+                                  }
                                 }),
                                 SizedBox(
                                   height: height * 0.008,
@@ -340,23 +350,28 @@ class _HomePageState extends State<HomePage> {
                       GoRouter.of(context).go(Routes.HEALTHTRACKET_SCREEN);
                     },
                   ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        'assets/images/icon_caries_detector.png',
-                        width: width * 0.25,
-                        height: height * 0.08,
-                      ),
-                      Text(
-                        'Caries Detector',
-                        style: TextStyle(
-                          fontSize: width * 0.036,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
+                  GestureDetector(
+                    onTap: () {
+                      GoRouter.of(context).go(Routes.CARIERDETECT_SCREEN);
+                    },
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          'assets/images/icon_caries_detector.png',
+                          width: width * 0.25,
+                          height: height * 0.08,
                         ),
-                      ),
-                    ],
+                        Text(
+                          'Caries Detector',
+                          style: TextStyle(
+                            fontSize: width * 0.036,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                   GestureDetector(
                     onTap: () {

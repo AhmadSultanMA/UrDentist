@@ -6,6 +6,10 @@ class RecapController extends GetxController {
   var profileId = 0;
   Rx<RecapResponse> data = RecapResponse(data: []).obs;
 
+  Rx<RecapData> detailRecap =
+      RecapData(dayCompleted: 0, totalPoints: 0, completedTasks: 0, periode: "")
+          .obs;
+
   var repo = Repository();
 
   getRecap({

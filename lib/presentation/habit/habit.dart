@@ -612,6 +612,7 @@ class _HabitState extends State<Habit> {
                           String tahunText = periodeParts[3];
                           return GestureDetector(
                             onTap: () {
+                              recapController.detailRecap.value = data;
                               GoRouter.of(context)
                                   .go(Routes.RECAPDETAIL_SCREEN);
                             },

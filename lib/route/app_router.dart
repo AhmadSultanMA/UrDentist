@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:urdentist/presentation/account/account.dart';
 import 'package:urdentist/presentation/article/article.dart';
+import 'package:urdentist/presentation/carierDetector/carier_detector.dart';
+import 'package:urdentist/presentation/carierDetector/result.dart';
 import 'package:urdentist/presentation/chooseProfile/screen/choose_profile.dart';
 import 'package:urdentist/presentation/chooseProfile/screen/create_profile.dart';
 import 'package:urdentist/presentation/consultation/screen/answer.dart';
@@ -200,6 +202,16 @@ class _AppRouterState extends State<AppRouter> {
             parentNavigatorKey: _rootNavKey,
             path: Routes.QUESTION4_SCREEN,
             builder: (context, _) => Question4(),
+          ),
+          GoRoute(
+            parentNavigatorKey: _rootNavKey,
+            path: Routes.CARIERDETECT_SCREEN,
+            builder: (context, _) => CameraScreen(),
+          ),
+          GoRoute(
+            parentNavigatorKey: _rootNavKey,
+            path: Routes.RESULT_SCREEN,
+            builder: (context, _) => ResultScreen(),
           ),
         ],
       ),

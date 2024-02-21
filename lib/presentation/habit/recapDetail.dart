@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'package:go_router/go_router.dart';
+import 'package:urdentist/presentation/homepage/recapController.dart';
 import 'package:urdentist/route/routes.dart';
 
 class RecapDetail extends StatefulWidget {
@@ -9,6 +11,8 @@ class RecapDetail extends StatefulWidget {
 }
 
 class _RecapDetailState extends State<RecapDetail> {
+  RecapController recapController = Get.find<RecapController>();
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -20,10 +24,13 @@ class _RecapDetailState extends State<RecapDetail> {
           backgroundColor: Colors.white,
           iconTheme: IconThemeData(color: Colors.black),
           centerTitle: true,
-          title: Text(
-            'Jul - Dec 2023',
-            style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600),
-          ),
+          title: Obx(() {
+            return Text(
+              recapController.detailRecap.value.periode,
+              style:
+                  TextStyle(color: Colors.black, fontWeight: FontWeight.w600),
+            );
+          }),
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
@@ -92,15 +99,18 @@ class _RecapDetailState extends State<RecapDetail> {
                         SizedBox(
                           height: height * 0.01,
                         ),
-                        Container(
-                          alignment: Alignment.center,
-                          child: Text(
-                            "183",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: width * 0.05),
-                          ),
-                        ),
+                        Obx(() {
+                          return Container(
+                            alignment: Alignment.center,
+                            child: Text(
+                              recapController.detailRecap.value.dayCompleted
+                                  .toString(),
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: width * 0.05),
+                            ),
+                          );
+                        }),
                         SizedBox(
                           height: height * 0.01,
                         ),
@@ -141,15 +151,18 @@ class _RecapDetailState extends State<RecapDetail> {
                         SizedBox(
                           height: height * 0.01,
                         ),
-                        Container(
-                          alignment: Alignment.center,
-                          child: Text(
-                            "915",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: width * 0.05),
-                          ),
-                        ),
+                        Obx(() {
+                          return Container(
+                            alignment: Alignment.center,
+                            child: Text(
+                              recapController.detailRecap.value.totalPoints
+                                  .toString(),
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: width * 0.05),
+                            ),
+                          );
+                        }),
                         SizedBox(
                           height: height * 0.01,
                         ),

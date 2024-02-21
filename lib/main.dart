@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:urdentist/presentation/carierDetector/carier_detector.dart';
+import 'package:urdentist/presentation/carierDetector/result.dart';
 import 'package:urdentist/route/app_router.dart';
 // import 'package:firebase_core/firebase_core.dart';
 // import 'package:google_sign_in/google_sign_in.dart';
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      // home: CameraScreen()
+      // home: ResultScreen()
       home: const SafeArea(
           child: Scaffold(
         body: AppRouter(),

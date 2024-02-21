@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:retrofit/http.dart';
 import 'package:urdentist/data/model/request/appointment/appointment_request.dart';
@@ -9,6 +11,7 @@ import 'package:urdentist/data/model/request/profile/create_profile_request.dart
 import 'package:urdentist/data/model/request/question/question_request.dart';
 import 'package:urdentist/data/model/request/register/register_request.dart';
 import 'package:urdentist/data/model/request/reset_password/reset_password_request.dart';
+import 'package:urdentist/data/model/request/upload/upload_request.dart';
 import 'package:urdentist/data/model/request/verify/verify_request.dart';
 import 'package:urdentist/data/model/request/verify/resend_verify_request.dart';
 import 'package:urdentist/data/model/request/verify_password/verify_password_request.dart';
@@ -24,6 +27,7 @@ import 'package:urdentist/data/model/response/recap/recap_response.dart';
 import 'package:urdentist/data/model/response/register/register_response.dart';
 import 'package:urdentist/data/model/response/reset_password/reset_password_response.dart';
 import 'package:urdentist/data/model/response/task/task_response.dart';
+import 'package:urdentist/data/model/response/upload/upload_response.dart';
 import 'package:urdentist/data/model/response/verify/verify_response.dart';
 import 'package:urdentist/data/model/response/verify/resend_verify_response.dart';
 import 'package:urdentist/data/model/response/verify_password/verify_password_response.dart';
@@ -120,4 +124,11 @@ abstract class RetrofitClient {
 
   @PUT("/paymentsdummy/{paymentId}")
   Future<BaseResponse> payment(@Path("paymentId") int paymentId);
+
+  @POST("/upload")
+  @FormUrlEncoded()
+  Future<UploadResponse> carierDetector(
+    @Part() File myFile,
+    @Part() String text,
+  );
 }
