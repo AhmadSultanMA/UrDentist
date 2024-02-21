@@ -272,7 +272,7 @@ class _HabitState extends State<Habit> {
                                       children: [
                                         Obx(() {
                                           return Text(
-                                            '${recapController.data.value.data.first.totalPoints} Exp Points',
+                                            '${recapController.data.value.data.first.completedTasks * 2} Exp Points',
                                             style: TextStyle(
                                                 color: Colors.blue.shade800,
                                                 fontWeight: FontWeight.bold,
@@ -287,8 +287,13 @@ class _HabitState extends State<Habit> {
                                             borderRadius: BorderRadius.circular(
                                                 10), // Sesuaikan dengan radius yang diinginkan
                                             child: LinearProgressIndicator(
-                                              value: recapController.data.value
-                                                      .data.first.totalPoints /
+                                              value: recapController
+                                                      .data
+                                                      .value
+                                                      .data
+                                                      .first
+                                                      .completedTasks *
+                                                  2 /
                                                   100,
                                               backgroundColor: Colors.grey,
                                               valueColor:

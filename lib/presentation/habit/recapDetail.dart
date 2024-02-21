@@ -155,8 +155,7 @@ class _RecapDetailState extends State<RecapDetail> {
                           return Container(
                             alignment: Alignment.center,
                             child: Text(
-                              recapController.detailRecap.value.totalPoints
-                                  .toString(),
+                              '${recapController.data.value.data.first.completedTasks * 2}',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: width * 0.05),

@@ -556,7 +556,7 @@ class _ConsultationState extends State<Consultation> {
                                               Radius.circular(5)),
                                         ),
                                         child: Text(
-                                          'Prevention',
+                                          'Paediatric',
                                           style: TextStyle(
                                               color: Colors.blue.shade700,
                                               fontWeight: FontWeight.w600),
@@ -577,49 +577,7 @@ class _ConsultationState extends State<Consultation> {
                                               Radius.circular(5)),
                                         ),
                                         child: Text(
-                                          'Caries',
-                                          style: TextStyle(
-                                              color: Colors.blue.shade700,
-                                              fontWeight: FontWeight.w600),
-                                        ),
-                                      ),
-                                      Container(
-                                        margin:
-                                            EdgeInsets.only(left: width * 0.02),
-                                        padding: EdgeInsets.only(
-                                            left: width * 0.03,
-                                            right: width * 0.03),
-                                        alignment: Alignment.center,
-                                        decoration: BoxDecoration(
-                                          border: Border.all(
-                                              color: Colors.blue.shade700,
-                                              width: 2),
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(5)),
-                                        ),
-                                        child: Text(
-                                          'Fluoride',
-                                          style: TextStyle(
-                                              color: Colors.blue.shade700,
-                                              fontWeight: FontWeight.w600),
-                                        ),
-                                      ),
-                                      Container(
-                                        margin:
-                                            EdgeInsets.only(left: width * 0.02),
-                                        padding: EdgeInsets.only(
-                                            left: width * 0.03,
-                                            right: width * 0.03),
-                                        alignment: Alignment.center,
-                                        decoration: BoxDecoration(
-                                          border: Border.all(
-                                              color: Colors.blue.shade700,
-                                              width: 2),
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(5)),
-                                        ),
-                                        child: Text(
-                                          'Cleaning',
+                                          'Endodontics',
                                           style: TextStyle(
                                               color: Colors.blue.shade700,
                                               fontWeight: FontWeight.w600),
