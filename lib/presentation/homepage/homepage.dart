@@ -225,7 +225,7 @@ class _HomePageState extends State<HomePage> {
                                   if (recapController
                                       .data.value.data.isNotEmpty) {
                                     return Text(
-                                      '${recapController.data.value.data.first.completedTasks * 5} Exp Points',
+                                      '${recapController.data.value.data.first.totalPoints} Exp Points',
                                       style: TextStyle(
                                         color: Colors.blue.shade800,
                                         fontWeight: FontWeight.bold,
@@ -246,8 +246,7 @@ class _HomePageState extends State<HomePage> {
                                       borderRadius: BorderRadius.circular(10),
                                       child: LinearProgressIndicator(
                                         value: recapController.data.value.data
-                                                .first.completedTasks *
-                                            5 /
+                                                .first.totalPoints /
                                             100,
                                         backgroundColor: Colors.grey,
                                         valueColor:

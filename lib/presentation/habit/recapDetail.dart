@@ -200,28 +200,33 @@ class _RecapDetailState extends State<RecapDetail> {
             SizedBox(
               height: height * 0.02,
             ),
-            Container(
-              padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.blue.shade600),
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(10),
-                ),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Make a Scaling Appointment',
-                    style: TextStyle(
-                        fontSize: width * 0.052,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.blue.shade600),
+            GestureDetector(
+                onTap: () {
+                  GoRouter.of(context).go(Routes.CONSULTATION_SCREEN);
+                },
+                child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.blue.shade600),
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(10),
+                    ),
                   ),
-                  Icon(Icons.add, color: Colors.blue.shade600),
-                ],
-              ),
-            )
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Make a Scaling Appointment',
+                        style: TextStyle(
+                            fontSize: width * 0.052,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.blue.shade600),
+                      ),
+                      Icon(Icons.add, color: Colors.blue.shade600),
+                    ],
+                  ),
+                ))
           ]),
         )));
   }

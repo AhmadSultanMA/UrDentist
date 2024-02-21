@@ -16,6 +16,8 @@ class _BookingState extends State<Booking> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
+    GoRouter _goRouter;
+    _goRouter = GoRouter.of(context);
 
     var profileController = Get.find<ProfileController>();
     var bookingController = Get.put(BookingController());
@@ -133,10 +135,9 @@ class _BookingState extends State<Booking> {
                       : GestureDetector(
                           onTap: () {
                             bookingController.payment(onSuccess: (msg) {
+                              _goRouter.go(Routes.BOOKSUCCESS_SCREEN);
+
                               Navigator.of(context).pop();
-                              showMySnackbar(context, msg);
-                              GoRouter.of(context)
-                                  .go(Routes.BOOKSUCCESS_SCREEN);
                             }, onFailed: (msg) {
                               showMySnackbar(context, 'failed');
                               Navigator.of(context).pop();
@@ -421,35 +422,38 @@ class _BookingState extends State<Booking> {
                   SizedBox(
                     width: width * 0.02,
                   ),
-                  GestureDetector(
-                      onTap: () {
-                        bookingController
-                            .appoinment(profileController.profile.value.id,
-                                onSuccess: (id) {
-                          bookingController.paymentId = id;
-                          _showPopup();
-                          showMySnackbar(context, 'berhasil');
-                        }, onFailed: (err) {
-                          showMySnackbar(context, err);
-                        });
-                      },
-                      child: Container(
-                        padding:
-                            EdgeInsets.symmetric(vertical: 12, horizontal: 48),
-                        decoration: BoxDecoration(
-                            color: Colors.blue.shade500,
-                            border: Border.all(
-                                color: Colors.blue.shade500, width: 2),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
-                        child: Text(
-                          'Book',
-                          style: TextStyle(
-                              fontSize: width * 0.045,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.white),
-                        ),
-                      ))
+                  Obx(() {
+                    return bookingController.isLoading.value
+                        ? CircularProgressIndicator()
+                        : GestureDetector(
+                            onTap: () {
+                              bookingController.appoinment(
+                                  profileController.profile.value.id,
+                                  onSuccess: (id) {
+                                bookingController.paymentId = id;
+                                _showPopup();
+                              }, onFailed: (err) {
+                                showMySnackbar(context, err);
+                              });
+                            },
+                            child: Container(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 12, horizontal: 48),
+                              decoration: BoxDecoration(
+                                  color: Colors.blue.shade500,
+                                  border: Border.all(
+                                      color: Colors.blue.shade500, width: 2),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10))),
+                              child: Text(
+                                'Book',
+                                style: TextStyle(
+                                    fontSize: width * 0.045,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.white),
+                              ),
+                            ));
+                  })
                 ],
               ),
             ],
