@@ -431,8 +431,7 @@ class _HomePageState extends State<HomePage> {
                     if (snapshot.connectionState == ConnectionState.done) {
                       // Widget yang akan ditampilkan setelah fetchData selesai
 
-                      return taskController.dailyTasks == [] ||
-                              taskController.dailyTasks == null
+                      return taskController.dailyTasks != []
                           ? Column(
                               children: taskController.dailyTasks.map((task) {
                                 task.updateStatus();
