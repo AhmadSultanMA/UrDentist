@@ -29,6 +29,13 @@ class _HomePageState extends State<HomePage> {
     fetchRecap();
   }
 
+  int countTrueTasks(List<DailyTask> tasks) {
+    List<DailyTask> trueTasks = tasks.where((task) => task.status).toList();
+    return trueTasks.length;
+  }
+
+  int trueTaskCount = 0;
+
   void didChangeDependencies() {
     super.didChangeDependencies();
     print('Dependencies changed');
@@ -85,6 +92,8 @@ class _HomePageState extends State<HomePage> {
         taskController.dailyTasks.value = globalDailyTasks.where((globalTask) {
           return !taskIds.any((taskId) => taskId == globalTask.id);
         }).toList();
+
+        trueTaskCount = countTrueTasks(taskController.dailyTasks);
       }, onFailed: (error) {
         print('$error ');
       });
@@ -431,10 +440,11 @@ class _HomePageState extends State<HomePage> {
                     if (snapshot.connectionState == ConnectionState.done) {
                       // Widget yang akan ditampilkan setelah fetchData selesai
 
-                      return taskController.dailyTasks != []
+                      return trueTaskCount != 0
                           ? Column(
                               children: taskController.dailyTasks.map((task) {
                                 task.updateStatus();
+                                print(taskController.dailyTasks.length);
                                 return DailyTaskWidget(task, 'home');
                               }).toList(),
                             )
