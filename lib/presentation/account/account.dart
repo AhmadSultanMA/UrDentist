@@ -13,9 +13,13 @@ class _AccountState extends State<Account> {
     // String email = UserManager.instance.getEmail();
 
     return Scaffold(
-      body: Container(
-        padding: EdgeInsets.all(16),
-        child: Text('Account'),
+      body: SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.all(16),
+          child: Column(
+            children: [],
+          ),
+        ),
       ),
     );
   }

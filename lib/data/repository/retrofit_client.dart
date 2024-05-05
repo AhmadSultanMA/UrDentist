@@ -34,7 +34,7 @@ import 'package:urdentist/data/model/response/verify_password/verify_password_re
 
 part 'retrofit_client.g.dart';
 
-@RestApi(baseUrl: "https://supple-hulling-408914.et.r.appspot.com")
+@RestApi(baseUrl: "https://solid-ruler-411410.et.r.appspot.com")
 abstract class RetrofitClient {
   factory RetrofitClient(Dio dio, {String baseUrl}) = _RetrofitClient;
 

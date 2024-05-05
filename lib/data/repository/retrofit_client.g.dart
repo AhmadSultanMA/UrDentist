@@ -13,7 +13,7 @@ class _RetrofitClient implements RetrofitClient {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'https://supple-hulling-408914.et.r.appspot.com';
+    baseUrl ??= 'https://solid-ruler-411410.et.r.appspot.com';
   }
 
   final Dio _dio;
